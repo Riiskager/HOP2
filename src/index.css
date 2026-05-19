@@ -1,0 +1,127 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+
+  color: var(--text);
+  background: var(--bg);
+  
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+.video{
+position: absolute;
+top: 0;
+left: 10%;
+width: 80%;
+height: 100%;
+overflow: hidden;
+border: 2px solid pink;
+}
+
+.canvas{
+
+border: 2px solid orange;
+position: absolute;
+justify-self: center;
+top: 0;
+transform: translateX(25%);
+width: 60%;
+height: 99%;
+}
+
+.border{
+  position: absolute;
+  transform: translateX(-50%);
+  left: 200px;
+  width: 500px;
+  height: 100vh;
+  background-color: #2e303a;
+}
+.border2{
+  position: relative;
+  transform: translateX(90%);
+  width: 30vw;
+  height: 92vh;
+  z-index: 10;
+  /*hello*/
+  border: 20px solid #9ca3af;
+  border-radius: 10%;
+}
+.border3{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: #2e303a;
+}
+
+.text{
+  position: absolute;
+  top: 0;
+  color: aliceblue;
+}
+.text p{
+  padding-top: 10px;
+}
+
+.buttons{
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  transform: translateX(250%);
+  width: 200px;
+
+  z-index: 20;
+  bottom: 5%;
+}
+
+#knap{
+  height: 50px;
+  width: 50px;
+  border-radius: 30px;
+
+}
+
+.beta2{
+  background-color: #aa3bff;
+}
