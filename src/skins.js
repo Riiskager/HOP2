@@ -13,52 +13,62 @@ export const skins = {
       scale: 1
     },
     roarm: {
-      img: "/groenarm.png",
+      img: "/hvidarm1.png",
       offsetY: 0,
       offsetX: -10,
-      rotation: Math.PI / 2
+     
+      thickness: 1.4,
+
     },
       ruarm: {
-      img: "/blaarmu.png",
+      img: "/hvidarm1.png",
       offsetY: 0,
       offsetX: -10,
-      scale: 0.5,
+      scale: 1,
+      thickness: 1.4,
     },
     loarm: {
-      img: "/orangarm.png",
+      img: "/hvisarm2.png",
       offsetY: 0,
       offsetX: 200,
-      rotation: Math.PI / -2
+      rotation: Math.PI / 2
     },
      luarm: {
-      img: "/roedarm.png",
+      img: "/hvisarm2.png",
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2
     },
     loben: {
-      img: "/groenarm.png",
+      img: "/hvidlaar1.png",
       offsetY: 0,
       offsetX: -10,
-      rotation: Math.PI / 2
+      rotation: Math.PI / -2
     },
     luben: {
-      img: "/blaarmu.png",
+      img: "/hvidben1.png",
       offsetY: 0,
       offsetX: -10,
       scale: 0.5,
+      thickness: 1.4,
+
     },
     roben: {
-      img: "/orangarm.png",
+      img: "/hvidlaar1.png",
       offsetY: 0,
       offsetX: 200,
-      rotation: Math.PI / -2
+      rotation: Math.PI / -2,
+      
+      thickness: 1.4,
+      
     },
     ruben: {
-      img: "/roedarm.png",
+      img: "/hvidben1.png",
       offsetY: 0,
       offsetX: 200,
-      rotation: Math.PI / -2
+      rotation: Math.PI / -2,
+      thickness: 1.4,
+
     },
    
     torso: {

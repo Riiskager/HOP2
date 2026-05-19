@@ -217,9 +217,10 @@ export default function App() {
 
 
             //ratio
-            const aspectRatio = img.height /img.width
-            //Skallering
-            const drawWidth = length * aspectRatio 
+            const aspectRatio = img.height / img.width;
+            const thickness = part.thickness || 1;
+
+            const drawWidth = length * aspectRatio * thickness;
             
             //Hænders specifikke rotation
             
