@@ -1,13 +1,15 @@
+
+//Importering af react komponenter og mediapipe værktøjer
 import { useEffect, useRef, useState } from "react";
 import { PoseLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 import "./index.css";
 
 // Datafiler
-import { knogler, points } from "./knogler";
-import { skins } from "./skins";
+import { knogler, points } from "./knogler"; //knogler.js, hvor jeg definerer underarm, overarm, torso osv
+import { skins } from "./skins"; //Hvor jeg bruger de samme navne som i knogler, til at definere hvilke billeder, der passer dertil
 
 export default function App() {
-  console.log("App rendered");
+  console.log("App rendered"); //early stage check, for at se om funktionen virker
   // Reference til video-elementet
   const videoRef = useRef(null);
 
@@ -15,7 +17,7 @@ export default function App() {
   const canvasRef = useRef(null);
 
   // Hvilket skin der er aktivt lige nu
-  const [skin, setSkin] = useState("");
+  const [skin, setSkin] = useState(""); //Er først aktivt når man klikker på knap
 
   useEffect(() => {
     console.log("skin changed:", skin)
@@ -24,12 +26,12 @@ export default function App() {
     let running = true;
 
 
-    // Her gemmer vi alle indlæste billeder
+    // Her gemmesalle indlæste billeder
     const loadedImages = {};
 
     async function init() {
       // =====================================
-      // 1. Start webcam
+      // Start webcam
       // =====================================
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true
@@ -39,20 +41,20 @@ export default function App() {
       await videoRef.current.play();
 
       // =====================================
-      // 2. Indlæs ALLE billeder fra alle skins
+      // Indlæs ALLE billeder fra alle skins
       // =====================================
       for (const [skinName, skinParts] of Object.entries(skins)) {
-        loadedImages[skinName] = {};
-
-        for (const [partName, partData] of Object.entries(skinParts)) {
+        loadedImages[skinName] = {}; //omdanner skin objects til arrays og danner et tomt objekt at have dem i
+                                     //Gemmer ikke billederne endnu
+        for (const [partName, partData] of Object.entries(skinParts)) {//går gennem alle "skins" for at finde parts(overarm, ben osv) samt deres tilhørende billede
           const img = new Image();
-          img.src = partData.img;
+          img.src = partData.img;  //Begynder at loade billederne
 
           await new Promise((resolve) => {
-            img.onload = resolve;
+            img.onload = resolve; //venter på at billederne loades, så den kan køre videre
           });
 
-          loadedImages[skinName][partName] = img;
+          loadedImages[skinName][partName] = img; //gemmer nu de loadede billeder sammen med deres tilhørende navn
         }
       }
 
@@ -62,7 +64,7 @@ export default function App() {
       const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
       );
-
+    
       poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
         baseOptions: {
           modelAssetPath:
@@ -84,27 +86,29 @@ export default function App() {
         if (!running) return;
 
         canvas.width = videoRef.current.videoWidth;
-        canvas.height = videoRef.current.videoHeight;
+        canvas.height = videoRef.current.videoHeight; //Canvas højde og drøjde er = videoen(det virker dog ikke)
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); //Først sletter vi alt på vores canvas
 
-        const result = poseLandmarker.detectForVideo(
-          videoRef.current,
-          performance.now()
-        );
+        //Gemmer koodinaterne til en posemakør lige nu
+        const result = poseLandmarker.detectForVideo( 
+          videoRef.current, //frame
+          performance.now() //timestamp
+        ); //burde gerne bruges til at smoothe bevægelse ud
 
         // Spejlvend canvas så det matcher webcam-visningen
         ctx.save();
         ctx.scale(-1, 1);
         ctx.translate(-canvas.width, 0);
 
-        if (result.landmarks?.length > 0) {
+        if (result.landmarks?.length > 0) { //Hvis result returnerer en liste med landmarks, og listen er over 0
           const landmarks = result.landmarks[0];
           const currentSkin = skins[skin];
           const currentImages = loadedImages[skin];
+          //Gem her: koordinaterne til alle landmarks, det valgte skin, og de loadede billeder, der tilhører skinnet
 
           //======================================
-          //  Torso
+          //  Torsoens position(kunne ikke gøres i bones, da den ikke er statisk)
           //======================================
 
         // skuldre
@@ -115,7 +119,7 @@ export default function App() {
         const hipLeft = landmarks[23];
         const hipRight = landmarks[24];
 
-        // midtpunkter
+        // midtpunkter 
         const shoulderCenter = {
           x: (shoulderLeft.x + shoulderRight.x) / 2,
           y: (shoulderLeft.y + shoulderRight.y) / 2
@@ -136,7 +140,7 @@ export default function App() {
         const torsoX2 = hipCenter.x * canvas.width;
         const torsoY2 = hipCenter.y * canvas.height;
 
-        // fix af underligt drift
+        // fix af underligt drift mod den ene side
         const torsoMidX = (torsoX1 + torsoX2) / 2;
         const torsoMidY = (torsoY1 + torsoY2) / 2;
 
@@ -163,7 +167,7 @@ export default function App() {
 
         // Højde
         const torsoAspectRatio = torsoImg.height / torsoImg.width;
-        const torsoHeight = torsoLength * torsoAspectRatio;
+        const torsoHeight = torsoLength * torsoAspectRatio; //sørger for at billedet ser normalt ud
 
         if (torsoPart && torsoImg) {
 
@@ -176,11 +180,11 @@ export default function App() {
           
           ctx.drawImage(
             torsoImg,
-            -torsoLength / 2,
-            -torsoHeight / 2 + (torsoPart.offsetY || 0),
-            torsoLength,
-            torsoHeight
-          );
+            -torsoLength / 2, //x koordinat
+            -torsoHeight / 2 + (torsoPart.offsetY || 0), //y koordinat
+            torsoLength, //Længde
+            torsoHeight //Højde
+          ); //sørger for at tegne billedt med alle disse informationer i mente
 
           ctx.restore();
         }
@@ -191,25 +195,29 @@ export default function App() {
           // =====================================
           // 6. Tegn alle knogler (arme, ben osv.)
           // =====================================
-          Object.entries(knogler).forEach(([name, bone]) => {
-            const part = currentSkin[name];
+          Object.entries(knogler).forEach(([name, bone]) => { //for alle objekter
+            const part = currentSkin[name]; 
             const img = currentImages[name];
 
-            if (!part || !img) return;
+            if (!part || !img) return; //hvis der hverken er del eller billede
 
-            const start = landmarks[bone.from];
-            const end = landmarks[bone.to];
+            const start = landmarks[bone.from]; //hvor billedet starter fra
+            const end = landmarks[bone.to]; //hvor billedet slutter
 
+            //Gemmer x og y koordinaterne for start og slut
             const x1 = start.x * canvas.width;
             const y1 = start.y * canvas.height;
             const x2 = end.x * canvas.width;
             const y2 = end.y * canvas.height;
 
+            //udregner længden mellem punkterne
             const dx = x2 - x1;
             const dy = y2 - y1;
 
-            const angle = Math.atan2(dy, dx);
-            const length = Math.sqrt(dx * dx + dy * dy);
+            
+            const angle = Math.atan2(dy, dx); //udregner rotation
+
+            const length = Math.sqrt(dx * dx + dy * dy); //pythagoras, for at udregne længden
 
             ctx.save();
             ctx.translate(x1, y1);
@@ -217,10 +225,10 @@ export default function App() {
 
 
             //ratio
-            const aspectRatio = img.height / img.width;
+            const aspectRatio = img.height / img.width; 
             const thickness = part.thickness || 1;
 
-            const drawWidth = length * aspectRatio * thickness;
+            const drawWidth = length * aspectRatio * thickness; //tilføjet for manuelt at kunne rette via tykkelse
             
             //Hænders specifikke rotation
             
@@ -252,7 +260,10 @@ export default function App() {
 
             const size = (part.size || 80) * (part.scale || 1);
 
-          
+            //Her ville det være fedt at lave noget rotation
+            //ud fra underarmens vinkel f.eks
+            //Eller at billedet ændrer sig når punktet er under midten af canvasset
+            //Det blev skrottet
 
             ctx.drawImage(
               img,
@@ -264,17 +275,17 @@ export default function App() {
           });
         }
 
-        ctx.restore();
-        requestAnimationFrame(detect);
+        ctx.restore(); //nulstiller
+        requestAnimationFrame(detect); //på næste frame, kør detect igen
       }
 
-      detect();
+      detect(); //kører detect første gang
     }
 
-    init();
+    init(); //starter forberedelse af kamera, mediapipe, billeder osv.
 
-    return () => {
-      running = false;
+    return () => { //renser det hele når skin ændres eller unloades
+      running = false; 
     };
   }, [skin]);
 
