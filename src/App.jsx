@@ -311,6 +311,7 @@ export default function App() {
         <p>Her ser i skærmløsningen til udstillingen <br/>
         Følg guiden for at optimere oplevelsen:
         <br/></p>
+        <p>- Tryk på f12 og sæt jeres mål til responsiv: 1258 x 722 <br/> for at line kamera og canvas op <br/> (Den grå ramme skal omkreds ramme vidoen ind)  </p>
         <p>- Tillad brug af kamera <br/><br/>
         - Tryk på en af knapperne, for at aktivere<br/><br/>
         - Stil jer, så så meget af jeres krop er synligt for kameraet.
