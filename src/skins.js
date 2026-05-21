@@ -17,7 +17,7 @@ export const skins = {
       offsetY: 0,
       offsetX: -10,
      
-      thickness: 1.4,
+      thickness: 2,
 
     },
       ruarm: {
@@ -25,32 +25,35 @@ export const skins = {
       offsetY: 0,
       offsetX: -10,
       scale: 1,
-      thickness: 1.4,
+      thickness: 2,
     },
     loarm: {
       img: "/hvisarm2.png",
       offsetY: 0,
       offsetX: 200,
-      rotation: Math.PI / 2
+      rotation: Math.PI / 2,
+      thickness: 2,
     },
      luarm: {
       img: "/hvisarm2.png",
       offsetY: 0,
       offsetX: 200,
-      rotation: Math.PI / -2
+      rotation: Math.PI / -2,
+      thickness: 2,
     },
     loben: {
       img: "/hvidlaar1.png",
       offsetY: 0,
-      offsetX: -10,
-      rotation: Math.PI / -2
+      offsetX: -20,
+      rotation: Math.PI / -2,
+      thickness: 2,
     },
     luben: {
       img: "/hvidben1.png",
       offsetY: 0,
-      offsetX: -10,
+      offsetX: -20,
       scale: 0.5,
-      thickness: 1.4,
+      thickness: 2,
 
     },
     roben: {
@@ -59,7 +62,7 @@ export const skins = {
       offsetX: 200,
       rotation: Math.PI / -2,
       
-      thickness: 1.4,
+      thickness: 2,
       
     },
     ruben: {
@@ -67,14 +70,15 @@ export const skins = {
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2,
-      thickness: 1.4,
+      thickness: 2,
 
     },
    
     torso: {
       img: "/torsobeta.png",
       scale: 2,
-      offsetx: 0
+      offsetx: 0,
+      thickness: 2,
     }
 
   },
@@ -92,56 +96,56 @@ export const skins = {
       scale: 1
     },
     roarm: {
-      img: "/roedarm.png",
+      img: "/pinkarm1.png",
       offsetY: 0,
       offsetX: -10,
       rotation: Math.PI / 2
     },
       ruarm: {
-      img: "/blaarmu.png",
+      img: "/pinkarm2.png",
       offsetY: 0,
       offsetX: -10,
       scale: 0.5,
     },
     loarm: {
-      img: "/orangarm.png",
+      img: "/pinkarm1.png",
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2
     },
      luarm: {
-      img: "/groenarm.png",
+      img: "/pinkarm2.png",
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2
     },
     loben: {
-      img: "/blaarmu.png",
+      img: "/pinklaar1.png",
       offsetY: 0,
       offsetX: -10,
       rotation: Math.PI / 2
     },
     luben: {
-      img: "/groenarm.png",
+      img: "/pinkben1.png",
       offsetY: 0,
       offsetX: -10,
       scale: 0.5,
     },
     roben: {
-      img: "/orangarm.png",
+      img: "/pinklaar1.png",
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2
     },
     ruben: {
-      img: "/roedarm.png",
+      img: "/pinkben1.png",
       offsetY: 0,
       offsetX: 200,
       rotation: Math.PI / -2
     },
    
     torso: {
-      img: "/torsobeta.png",
+      img: "/pinktorso.png",
       scale: 3,
       offsetx: 0
     }

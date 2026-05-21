@@ -307,8 +307,8 @@ export default function App() {
       </div>
 
       <div className="buttons">
-        <button id="knap" onClick={() => setSkin("beta")}>Beta</button>
-        <button id="knap" className ="beta2" onClick={() => setSkin("beta2")}>Beta</button>
+        <button id="knap" onClick={() => setSkin("beta")}>Hvid</button>
+        <button id="knap" className ="beta2" onClick={() => setSkin("beta2")}>Pink</button>
       </div>
     </div>
   );
